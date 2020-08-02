@@ -11,3 +11,6 @@ Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 Disallow: /categories/
+
+Sitemap: https://pan64271.github.io/sitemap.xml
+Sitemap: https://pan64271.github.io/baidusitemap.xml
