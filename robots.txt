@@ -11,6 +11,3 @@ Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 Disallow: /categories/
-
-Sitemap: http://rogn.top/sitemap.xml
-Sitemap: http://rogn.top/baidusitemap.xml
