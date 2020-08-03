@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>test</title>
-    <url>/2020/08/01/test/</url>
-    <content><![CDATA[<h2 id="Test-1"><a href="#Test-1" class="headerlink" title="Test 1"></a>Test 1</h2><h3 id="Test-1-1"><a href="#Test-1-1" class="headerlink" title="Test 1.1"></a>Test 1.1</h3><p>1<br>1<br>1<br>1<br>1</p>
-<h3 id="Test-1-2"><a href="#Test-1-2" class="headerlink" title="Test 1.2"></a>Test 1.2</h3><p>2<br>2<br>2<br>2<br>2</p>
-<h3 id="Test-1-3"><a href="#Test-1-3" class="headerlink" title="Test 1.3"></a>Test 1.3</h3><p>3<br>3<br>3<br>3<br>3</p>
-<h2 id="Test-2"><a href="#Test-2" class="headerlink" title="Test 2"></a>Test 2</h2><h3 id="Test-2-1"><a href="#Test-2-1" class="headerlink" title="Test 2.1"></a>Test 2.1</h3><p>1<br>1<br>1<br>1<br>1</p>
-<h3 id="Test-2-2"><a href="#Test-2-2" class="headerlink" title="Test 2.2"></a>Test 2.2</h3><p>2<br>2<br>2<br>2<br>2</p>
-<h3 id="Test-2-3"><a href="#Test-2-3" class="headerlink" title="Test 2.3"></a>Test 2.3</h3><p>3<br>3<br>3<br>3<br>3</p>
-]]></content>
-  </entry>
-  <entry>
     <title>补码设计思路的探索</title>
     <url>/2020/08/01/%E8%A1%A5%E7%A0%81%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF%E7%9A%84%E6%8E%A2%E7%B4%A2/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为19级某位大佬提出了<code>补码的存在意义</code>这个问题，回想了一下在初次接触补码时自己对这个问题的思考只停留在了<code>去除了重复的0以及方便了相反数相加得到0</code>这一点上，却没有进一步思考为什么会有这样的需求，遂谷歌后从 <a href="https://stackoverflow.com/questions/1125304/why-prefer-twos-complement-over-sign-and-magnitude-for-signed-numbers">stackoverflow上的相关问题</a> 处得到了较为完备的答案：<strong><code>为了降低加法器电路的复杂度，具体来说就是免除了重复的0的判断以及使用加法电路来同时实现加减法</code></strong>。</p>
