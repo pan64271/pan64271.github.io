@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>pan64271的博客</title>
+  <icon>https://pan64271.github.io/icon.png</icon>
+  <subtitle>未经审视的人生，是不值得过的。——苏格拉底</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://pan64271.github.io/"/>
+  <updated>2020-08-01T13:16:37.050Z</updated>
+  <id>https://pan64271.github.io/</id>
+  
+  <author>
+    <name>pan64271</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>补码设计思路的探索</title>
+    <link href="https://pan64271.github.io/2020/08/01/%E8%A1%A5%E7%A0%81%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF%E7%9A%84%E6%8E%A2%E7%B4%A2/"/>
+    <id>https://pan64271.github.io/2020/08/01/%E8%A1%A5%E7%A0%81%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF%E7%9A%84%E6%8E%A2%E7%B4%A2/</id>
+    <published>2020-08-01T13:06:45.000Z</published>
+    <updated>2020-08-01T13:16:37.050Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;因为19级某位大佬提出了&lt;code&gt;补码的存在意义&lt;/code&gt;这个问题，回想了一下在初次接触补码时自己对这个问题的思考只停留在了&lt;code&gt;去除了重复的0以及方便了相反数相加得到0&lt;/code&gt;这一点上，却没有进一步思考为什么会有这样的需求，遂谷歌后从 &lt;a href=&quot;https://stackoverflow.com/questions/1125304/why-prefer-twos-complement-over-sign-and-magnitude-for-signed-numbers&quot;&gt;stackoverflow上的相关问题&lt;/a&gt; 处得到了较为完备的答案：&lt;strong&gt;&lt;code&gt;为了降低加法器电路的复杂度，具体来说就是免除了重复的0的判断以及使用加法电路来同时实现加减法&lt;/code&gt;&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;然而，这也不禁让我开始好奇起当初补码的设计者们是怎样从这样的需求出发，并最终出这么一套精妙的编码系统的。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="CS" scheme="https://pan64271.github.io/categories/CS/"/>
+    
+      <category term="设计反思" scheme="https://pan64271.github.io/categories/CS/%E8%AE%BE%E8%AE%A1%E5%8F%8D%E6%80%9D/"/>
+    
+    
+      <category term="数学" scheme="https://pan64271.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="抽象代数" scheme="https://pan64271.github.io/tags/%E6%8A%BD%E8%B1%A1%E4%BB%A3%E6%95%B0/"/>
+    
+      <category term="补码" scheme="https://pan64271.github.io/tags/%E8%A1%A5%E7%A0%81/"/>
+    
+  </entry>
+  
+</feed>
