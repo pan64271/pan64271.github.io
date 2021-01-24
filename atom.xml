@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://pan64271.github.io/"/>
-  <updated>2020-08-01T13:16:37.050Z</updated>
+  <updated>2021-01-24T08:08:59.096Z</updated>
   <id>https://pan64271.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>基于OpenCV的简单几何形状识别</title>
+    <link href="https://pan64271.github.io/2021/01/24/%E5%9F%BA%E4%BA%8EOpenCV%E7%9A%84%E7%AE%80%E5%8D%95%E5%87%A0%E4%BD%95%E5%BD%A2%E7%8A%B6%E8%AF%86%E5%88%AB/"/>
+    <id>https://pan64271.github.io/2021/01/24/%E5%9F%BA%E4%BA%8EOpenCV%E7%9A%84%E7%AE%80%E5%8D%95%E5%87%A0%E4%BD%95%E5%BD%A2%E7%8A%B6%E8%AF%86%E5%88%AB/</id>
+    <published>2021-01-24T02:16:52.000Z</published>
+    <updated>2021-01-24T08:08:59.096Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;这是这学期的一个大作业，要求能做到识别出图像中的矩形、三角形、以及圆形，虽然网上已经有了很多相似的解决方案，但因为我实现之后发现在我自己瞎画出来的图像上识别出来的效果都稍有瑕疵，故决定还是写一篇文章出来分享一下自己改进这些瑕疵的思路。&lt;/p&gt;
+&lt;h2 id=&quot;互联网上已有的解决方案&quot;&gt;&lt;a href=&quot;#互联网上已有的解决方案&quot; class=&quot;headerlink&quot; title=&quot;互联网上已有的解决方案&quot;&gt;&lt;/a&gt;互联网上已有的解决方案&lt;/h2&gt;
+    
+    </summary>
+    
+    
+      <category term="CS" scheme="https://pan64271.github.io/categories/CS/"/>
+    
+      <category term="数字图像处理" scheme="https://pan64271.github.io/categories/CS/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"/>
+    
+    
+      <category term="OpenCV" scheme="https://pan64271.github.io/tags/OpenCV/"/>
+    
+      <category term="Python" scheme="https://pan64271.github.io/tags/Python/"/>
+    
+      <category term="数字图像处理" scheme="https://pan64271.github.io/tags/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"/>
+    
+      <category term="图像识别" scheme="https://pan64271.github.io/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/"/>
+    
+  </entry>
   
   <entry>
     <title>补码设计思路的探索</title>
