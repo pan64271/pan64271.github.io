@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://pan64271.github.io/"/>
-  <updated>2021-01-24T08:08:59.096Z</updated>
+  <updated>2021-03-22T11:02:32.195Z</updated>
   <id>https://pan64271.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>babyrasterizer-手写软光栅化渲染器踩坑记</title>
+    <link href="https://pan64271.github.io/2021/03/22/babyrasterizer-%E6%89%8B%E5%86%99%E8%BD%AF%E5%85%89%E6%A0%85%E5%8C%96%E6%B8%B2%E6%9F%93%E5%99%A8%E8%B8%A9%E5%9D%91%E8%AE%B0/"/>
+    <id>https://pan64271.github.io/2021/03/22/babyrasterizer-%E6%89%8B%E5%86%99%E8%BD%AF%E5%85%89%E6%A0%85%E5%8C%96%E6%B8%B2%E6%9F%93%E5%99%A8%E8%B8%A9%E5%9D%91%E8%AE%B0/</id>
+    <published>2021-03-22T04:20:21.000Z</published>
+    <updated>2021-03-22T11:02:32.195Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;自学图形学也算是有一段时间了，看到各种大佬似乎在入门后都会选择手写一个软渲染器的样子，于是我也试着跟风来写了一下（毕竟这东西真的很酷）。&lt;/p&gt;
+&lt;p&gt;在调查了一番后，我发现很多大佬都推荐跟着 &lt;a href=&quot;https://github.com/ssloy/tinyrenderer&quot;&gt;tinyrenderer&lt;/a&gt; 这个项目来写，于是我也把它当作了一个很重要的参考。当然，这里面很多知识点讲解得其实比较粗略，新手想直接看这个就完全搞懂得话还是有难度的，所以最好还是搭配闫老师的课程 &lt;a href=&quot;http://games-cn.org/intro-graphics/&quot;&gt;GAMES101&lt;/a&gt; 食用。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="CS" scheme="https://pan64271.github.io/categories/CS/"/>
+    
+      <category term="CG" scheme="https://pan64271.github.io/categories/CS/CG/"/>
+    
+    
+      <category term="计算机图形学" scheme="https://pan64271.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    
+  </entry>
   
   <entry>
     <title>基于OpenCV的简单几何形状识别</title>

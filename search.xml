@@ -111,4 +111,38 @@ f^{-1}(a) \oplus f^{-1}(b)
         <tag>图像识别</tag>
       </tags>
   </entry>
+  <entry>
+    <title>babyrasterizer-手写软光栅化渲染器踩坑记</title>
+    <url>/2021/03/22/babyrasterizer-%E6%89%8B%E5%86%99%E8%BD%AF%E5%85%89%E6%A0%85%E5%8C%96%E6%B8%B2%E6%9F%93%E5%99%A8%E8%B8%A9%E5%9D%91%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>自学图形学也算是有一段时间了，看到各种大佬似乎在入门后都会选择手写一个软渲染器的样子，于是我也试着跟风来写了一下（毕竟这东西真的很酷）。</p>
+<p>在调查了一番后，我发现很多大佬都推荐跟着 <a href="https://github.com/ssloy/tinyrenderer">tinyrenderer</a> 这个项目来写，于是我也把它当作了一个很重要的参考。当然，这里面很多知识点讲解得其实比较粗略，新手想直接看这个就完全搞懂得话还是有难度的，所以最好还是搭配闫老师的课程 <a href="http://games-cn.org/intro-graphics/">GAMES101</a> 食用。</p>
+<p>最终的成品放在了 github 的这个仓库上：<a href="https://github.com/pan64271/babyrasterizer">pan64271’s babyrasterizer</a>，可以看到其中挺多部分还是参考的 tinyrenderer 这个项目，比如 <code>model.h</code>、<code>model.cpp</code>、<code>geometry.h</code>、<code>geometry.cpp</code>、<code>tgaimage.h</code>、<code>tgaimage.cpp</code> 这些基础的模型加载、图像读取保存、线性代数的内容就基本上是照搬过来的。当然我也还是在照搬的基础上做了一些改进或者说优化的，比如线性代数的部分我就添加了一些让图形学部分的代码更简洁的内容。</p>
+<p>说了这么多废话，下面就回归正题，开始记录一下写这个 babyrasterizer 的过程中踩过的一些坑吧。</p>
+<h2 id="坑点"><a href="#坑点" class="headerlink" title="坑点"></a>坑点</h2><h3 id="坑点一：法向量的转换"><a href="#坑点一：法向量的转换" class="headerlink" title="坑点一：法向量的转换"></a>坑点一：法向量的转换</h3><p>随着物体的旋转，一个三角形面的法向量也是会跟着旋转的，所以当对物体使用了 <code>Model</code> 这个变换时，我们也需要对其相应的每个面的法向量做出一定的变换。</p>
+<p>而这个变换并不是直接把 <code>Model</code> 矩阵乘到法向量 <code>n</code> 上就行了（这就是我途中明明知道但还是犯了的错误），而是需要乘上 <code>Model</code> 矩阵的逆矩阵的转置矩阵，即 $(Model^{-1})^T$，理由如下：</p>
+<p>设原平面上的一个向量为 $\vec{a}$，则有 $\vec{n}^T \cdot \vec{a} = 0$ (此处的点为矩阵乘法)，经过 <code>Model</code> 矩阵转换后，$\vec{a}$ 变成了 $Model \cdot \vec{a}$，要想经过转换 $T$ 后的 $T \cdot \vec{n}$ 与 $Model \cdot \vec{a}$ 垂直，则需要满足 $(T \cdot \vec{n})^T \cdot (Model \cdot \vec{a}) = 0$，亦即 $(\vec{n}^T \cdot T^T) \cdot (Model \cdot \vec{a}) = 0$，即 $\vec{n}^T \cdot (T^T \cdot Model) \cdot \vec{a} = 0$。</p>
+<p>如果有 $T^T \cdot Model = I$ 的话，那么上面的条件显然成立，故 $T = (Model^{-1})^T$。</p>
+<h3 id="坑点二：深度的透视矫正，z-z-w-w"><a href="#坑点二：深度的透视矫正，z-z-w-w" class="headerlink" title="坑点二：深度的透视矫正，z = z / w / w"></a>坑点二：深度的透视矫正，z = z / w / w</h3><p>常规的实现下似乎是在做完透视除法后再进行 <code>viewport</code> 转换，然后再把坐标 $(x, y, z, 1)$ 给变成 $(x, y, z/w, 1/w)$ 以方便后续的透视矫正。</p>
+<p>在我的实现中，为了方便使用这个 $w$ 值（因为做完透视除法这个 $w$ 值就消失了），我是在做完了 <code>viewport</code> 转换后才进行透视除法的。但是在做完透视除法后对 $z$ 坐标应该再除以一次 $w$ 才能得到透视矫正需要的 $z/w$，在这里我就忘了要多除以一次 $w$，搞得最后出来的结果很诡异。</p>
+<h3 id="坑点三：MSAA-需要为每个子采样点记录深度与颜色值"><a href="#坑点三：MSAA-需要为每个子采样点记录深度与颜色值" class="headerlink" title="坑点三：MSAA 需要为每个子采样点记录深度与颜色值"></a>坑点三：MSAA 需要为每个子采样点记录深度与颜色值</h3><p>一开始我以为直接算出像素中心点的颜色，然后再看看当前三角形对像素的子采样点的覆盖情况，根据覆盖情况来对这个颜色设为几分之几就行了，也就是说我没有考虑一个像素的子采样点分别被几个不同的三角形覆盖的情况，可想而知出来的效果肯定是不对的，每个三角形的边缘都被较暗的像素给区别了出来：</p>
+<p><img src="./MSAA_error.png" alt="MSAA_error.png"></p>
+<p>后来在群里的大佬的提醒下，才知道了原来要对每个像素的子采样点都维护深度值与颜色值，等所有三角形都对这些子采样点着色完后，才计算每个像素的颜色。半懂不懂的情况下就去实战果然还是不太行啊。</p>
+<h3 id="坑点四：切线空间法线贴图"><a href="#坑点四：切线空间法线贴图" class="headerlink" title="坑点四：切线空间法线贴图"></a>坑点四：切线空间法线贴图</h3><p>一开始我是用的每个三角形面的法向量来作为 <code>TBN</code> 矩阵的第三维，结果出来的结果有点诡异：</p>
+<p><img src="./tangent_nm_error.png" alt="tangent_nm_error.png"></p>
+<p>后来看了下 tinyrenderer 项目里关于切线空间法向量贴图的对应源码，法线这个模型的法线贴图要用对应片段的法向来做 <code>TBN</code> 矩阵的第三维，问了下群里的大佬才知道原来这两种做法都有，具体是哪种则是取决于生成法线贴图时选了哪种。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>最后稍微写一下一些实现上的决策以及遗憾点吧。</p>
+<p>首先是齐次坐标裁剪。这部分我只实现了 z 轴上的裁剪，因为我觉得 x 轴以及 y 轴方向上的裁剪的话，直接在做三角形光栅化求 bounding box 时，把超出屏幕的部分去掉就好了，只需要多做四次比较，感觉这样子性能上反而会更佳。</p>
+<p>然后是阴影。目前的阴影做的还只是跟着 tinyrender 项目做的一个很初步的平行光投影而已，而且也没有做到确保视锥体的范围都落到阴影贴图内。这个 bug 就等将来学深入了一点再来修吧。</p>
+<p>最后是 SSAO。这个的话，说实话我暂时还没能完全理解，所以就还没实现。而且似乎 SSAO 和 MSAA 兼容不太好的样子，如果要加上 SSAO 的话，那可能就要把抗锯齿的方法也改掉，总之就会是一个大改吧。不过稍微看了下 LearnOpenGL 里的延迟渲染的部分似乎还挺有趣的样子，也是等日后学到了再来改进吧。</p>
+<p>最后的最后，就把写了但没能集成到 babyrasterizer 中的 Bresenham 画线算法的代码放上来吧：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">line</span><span class="params">(<span class="keyword">int</span> x0, <span class="keyword">int</span> y0, <span class="keyword">int</span> x1, <span class="keyword">int</span> y1, TGAImage &amp;image, <span class="keyword">const</span> TGAColor &amp;color)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">bool</span> steep = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">std</span>::<span class="built_in">abs</span>(x0 - x1) &lt; <span class="built_in">std</span>::<span class="built_in">abs</span>(y0-y1)) &#123;</span><br><span class="line">        <span class="built_in">std</span>::swap(x0, y0);</span><br><span class="line">        <span class="built_in">std</span>::swap(x1, y1);</span><br><span class="line">        steep = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (x0 &gt; x1) &#123;</span><br><span class="line">        <span class="built_in">std</span>::swap(x0, x1);</span><br><span class="line">        <span class="built_in">std</span>::swap(y0, y1);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> dx = x1 - x0;</span><br><span class="line">    <span class="keyword">int</span> dy = y1 - y0;</span><br><span class="line">    <span class="keyword">int</span> yincr = (y1&gt;=y0 ? <span class="number">1</span> : <span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">int</span> de = <span class="number">2</span>*<span class="built_in">std</span>::<span class="built_in">abs</span>(dy);</span><br><span class="line">    <span class="keyword">int</span> e = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> y = y0;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> x = x0; x &lt;= x1; x++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (steep) &#123;</span><br><span class="line">            image.<span class="built_in">set</span>(y, x, color);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            image.<span class="built_in">set</span>(x, y, color);</span><br><span class="line">        &#125;</span><br><span class="line">        e += de;</span><br><span class="line">        <span class="keyword">if</span> (e &gt; dx) &#123;</span><br><span class="line">            y += yincr;</span><br><span class="line">            e -= <span class="number">2</span>*dx;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>CS</category>
+        <category>CG</category>
+      </categories>
+      <tags>
+        <tag>计算机图形学</tag>
+      </tags>
+  </entry>
 </search>
